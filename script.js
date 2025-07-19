@@ -1,0 +1,227 @@
+// dynamically create chess board
+function loadChessBoard(){
+    let isBeige = true; //top left is "white" playing as white
+
+    const tableEl = document.getElementById("board-table");
+
+    for(let row=8; row>=1; row--){ //"rank"
+        let trEl = document.createElement("tr");
+        for(let col=1; col<=8; col++){
+            let tdEl = document.createElement("td");
+            tdEl.id = files[col-1] + row;
+            // tdEl.textContent = files[col-1] + row;
+            tdEl.addEventListener('click', ()=>{
+                playMoveSound();
+                selectedSquare=tdEl.id;
+                userClicked=true;
+                //check answer and update score
+                if(selectedSquare===notationField)
+                    correct();
+                else
+                    incorrect();
+                endlessGameModeHelper();
+            });
+            tdEl.style.background = isBeige ? "#ebecd0" : "#739552";
+            isBeige=!isBeige; //toggle it
+            trEl.appendChild(tdEl);
+        }
+        //create alternating pattern
+        isBeige=!isBeige; //toggle it
+        tableEl.appendChild(trEl);
+    }
+}
+
+// Game modes functions
+
+function timedGameMode(duration){
+    hideGameModeMenu();
+    document.getElementById('game-mode-name').textContent = "Timed Mode";
+    document.getElementById('timed-mode-clock').style.display = 'block';
+
+    startCountDown(duration);
+    endlessGameModeHelper();
+}
+
+function startCountDown(seconds){
+    let remaining = seconds;
+    const clockTime = document.getElementById('clock-time');
+    clockTime.textContent = remaining;
+
+    const intervalId = setInterval(() => {
+        remaining--;
+        clockTime.textContent = remaining;
+
+        if(remaining<=0){
+            document.getElementById('try-again-btn').style.display='block';
+            clearInterval(intervalId);
+
+            // Let DOM update first, then alert
+            setTimeout(() => {
+                alert("Time's up!");
+            }, 100); // 100ms is enough to flush the DOM changes
+        }
+
+    }, 1000); //every sec
+}
+
+function endlessGameMode(){
+    hideGameModeMenu();
+    document.getElementById('game-mode-name').textContent = "Endless Mode";
+    
+    endlessGameModeHelper();
+}
+
+//helper function to endlessGameMode() to make it event driven rather than while(true) wait loop
+function endlessGameModeHelper(){
+    //clear previous selection
+    userClicked=false;
+    selectedSquare='';
+
+    //display random notation
+    notationField = getRandChessNotation();
+    document.getElementById('notation-field').innerText = notationField;
+}
+
+
+function survivalGameMode(){
+    document.getElementById('game-mode-name').textContent = "Survival Mode";
+    hideGameModeMenu();
+}
+
+
+// hide all the game mode buttons and display the chess board
+function hideGameModeMenu(){
+    //hide game mode buttons
+    document.getElementById('game-mode-menu').style.display = "none";
+
+    //show chessboard
+    document.getElementById('board').style.display='block';
+
+    //show score
+    document.getElementById('score').style.display='block';
+
+    //show the quit button
+    document.getElementById('quit-btn').style.display='block';
+}
+
+//generates a random chess notation [file][rank] or [col][row]
+function getRandChessNotation(){
+    return (files[getRandomInt()-1] + getRandomInt());
+}
+
+//helper function that returns a random number [1,8]
+function getRandomInt() {
+    return Math.floor(Math.random() * (8 - 1 + 1)) + 1;
+}
+
+//update and display current number of correct answers
+function correct()
+{
+    numCorrect++;
+    //display score
+    document.getElementById('numCorrect').innerText = numCorrect;
+}
+
+//update and display current number of incorrect answers
+function incorrect()
+{
+    numIncorrect++;
+    //display score
+    document.getElementById('numIncorrect').innerText = numIncorrect;
+}
+
+
+//GLOBAL VARS
+
+// contains the files letters
+const files = ['a','b','c','d','e','f','g','h'];
+let notationField;
+let selectedSquare=''; //the square the user clicked
+let userClicked = false;
+let numCorrect = 0;
+let numIncorrect = 0;
+
+
+
+// using web audio api for lower latency 
+const audioContext = new AudioContext();
+let audioBuffer;
+
+//selecting board tile noise
+fetch('http://images.chesscomfiles.com/chess-themes/sounds/_MP3_/default/move-self.mp3')
+    .then(response => response.arrayBuffer()) //fetch the audio data
+    .then(buffer => audioContext.decodeAudioData(buffer)) // decode the audio data
+    .then(decodedData => {
+        audioBuffer = decodedData; //load into memory
+    }
+);
+
+function playMoveSound() {
+    const source = audioContext.createBufferSource();
+    source.buffer = audioBuffer;
+    source.connect(audioContext.destination);
+    source.start(0);
+}
+
+
+//all button select noise
+const audioContext2 = new AudioContext();
+let audioBuffer2;
+fetch('http://images.chesscomfiles.com/chess-themes/sounds/_MP3_/default/move-check.mp3')
+    .then(response => response.arrayBuffer()) //fetch the audio data
+    .then(buffer => audioContext2.decodeAudioData(buffer)) // decode the audio data
+    .then(decodedData => {
+        audioBuffer2 = decodedData; //load into memory
+    }
+);
+
+function playSelectSound(){
+    const source = audioContext2.createBufferSource();
+    source.buffer = audioBuffer2;
+    source.connect(audioContext2.destination);
+    source.start(0);
+}
+
+
+window.onload = () => {
+    loadChessBoard(); //create chess board dynamically
+
+    //add event listeners to game mode buttons
+
+    //timed game mode buttons
+    document.getElementById('timed30s-btn').addEventListener('click',()=>{
+        playSelectSound();
+        timedGameMode(30);
+    });
+    document.getElementById('timed1min-btn').addEventListener('click',()=>{
+        playSelectSound();
+        timedGameMode(60);
+    });
+    document.getElementById('timed3mins-btn').addEventListener('click',()=>{
+        playSelectSound();
+        timedGameMode(3*60);
+    });
+    document.getElementById('timed5mins-btn').addEventListener('click',()=>{
+        playSelectSound();
+        timedGameMode(5*60);
+    });
+
+    //endless mode button
+    document.getElementById("endless-btn").addEventListener('click',()=>{
+        playSelectSound();
+        endlessGameMode()
+    });
+
+    //survival mode button
+    document.getElementById('survival-btn').addEventListener('click', ()=>{
+        playSelectSound();
+        survivalGameMode()
+    });
+
+    //quit button
+    document.getElementById('quit-btn').addEventListener('click',()=>{
+        playSelectSound();
+        window.location.reload();
+    });
+
+}

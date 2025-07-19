@@ -1,0 +1,8 @@
+7/19/25
+-Implement "Survival Mode"
+-Clean up UI for mobile device
+-Option to play was white or black
+-Show correct square if wrong selection
+-Red background when incorrect
+-Green background when correct
+-High score system?
