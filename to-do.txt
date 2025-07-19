@@ -6,3 +6,4 @@
 -Red background when incorrect
 -Green background when correct
 -High score system?
+-Fix sound effect for mobile devices

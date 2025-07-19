@@ -34,6 +34,7 @@ function loadChessBoard(){
 // Game modes functions
 
 function timedGameMode(duration){
+    timeMode=duration;
     hideGameModeMenu();
     document.getElementById('game-mode-name').textContent = "Timed Mode";
     document.getElementById('timed-mode-clock').style.display = 'block';
@@ -140,6 +141,7 @@ let selectedSquare=''; //the square the user clicked
 let userClicked = false;
 let numCorrect = 0;
 let numIncorrect = 0;
+let timeMode; //save timed mode duration for play again button
 
 
 
@@ -223,5 +225,10 @@ window.onload = () => {
         playSelectSound();
         window.location.reload();
     });
+
+    //play again button
+    document.getElementById('try-again-btn').addEventListener('click', ()=>{
+        timedGameMode(timeMode);
+    })
 
 }
