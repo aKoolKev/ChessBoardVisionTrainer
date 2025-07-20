@@ -10,18 +10,40 @@ function loadChessBoard(){
             let tdEl = document.createElement("td");
             tdEl.id = files[col-1] + row;
             // tdEl.textContent = files[col-1] + row;
+            let tileBg;
             tdEl.addEventListener('click', ()=>{
+                //prevent spam clicking when temporary highlighting the correct tile
+                if(board.style.pointerEvents === 'none') return;
                 playMoveSound();
+                board.style.pointerEvents = 'none'; //disable all clicks
+
                 selectedSquare=tdEl.id;
                 userClicked=true;
                 //check answer and update score
-                if(selectedSquare===notationField)
+                if(selectedSquare===notationField){
                     correct();
-                else
+                    board.style.pointerEvents = 'auto'; // enable immediatley
+                }
+                else{
+                    //grab and save correct tile bg color
+                    const correctTile = document.getElementById(notationField);
+                    const correctTileBg = correctTile.style.background;
+
+                    //highlight the correct tile bg color
+                    correctTile.style.background= 'yellow';
+
+                    //update incorrect score
                     incorrect();
-                endlessGameModeHelper();
+
+                    //after some time, revert the tile back to original color (creates the flashing color)
+                    setTimeout(() => {
+                        correctTile.style.background = correctTileBg;
+                        board.style.pointerEvents = 'auto'; // re-enable clicks
+                    }, 500);
+                }
+                endlessGameModeHelper(); //next round
             });
-            tdEl.style.background = isBeige ? "#ebecd0" : "#739552";
+            tdEl.style.background = isBeige ? "#ebecd0" : "#739552";;
             isBeige=!isBeige; //toggle it
             trEl.appendChild(tdEl);
         }
@@ -36,6 +58,9 @@ function loadChessBoard(){
 function timedGameMode(duration){
     timeMode=duration;
     hideGameModeMenu();
+    //reset any previous score
+    resetScore();
+
     document.getElementById('game-mode-name').textContent = "Timed Mode";
     document.getElementById('timed-mode-clock').style.display = 'block';
 
@@ -115,6 +140,17 @@ function getRandomInt() {
     return Math.floor(Math.random() * (8 - 1 + 1)) + 1;
 }
 
+//clear score and display empty score
+function resetScore(){
+    //clear internal score as well
+    numCorrect = 0;
+    numIncorrect = 0;
+
+    //clear display
+    document.getElementById('numCorrect').innerText = numCorrect;
+    document.getElementById('numIncorrect').innerText = numIncorrect;
+}
+
 //update and display current number of correct answers
 function correct()
 {
@@ -142,6 +178,7 @@ let userClicked = false;
 let numCorrect = 0;
 let numIncorrect = 0;
 let timeMode; //save timed mode duration for play again button
+const board = document.getElementById('board');
 
 
 
@@ -228,7 +265,9 @@ window.onload = () => {
 
     //play again button
     document.getElementById('try-again-btn').addEventListener('click', ()=>{
+        document.getElementById('try-again-btn').style.display='none';
         timedGameMode(timeMode);
     })
+
 
 }
