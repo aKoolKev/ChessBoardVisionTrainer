@@ -44,6 +44,8 @@
             <!-- Survival modes -->
             <div>
                 <h3 style="text-transform: uppercase;">Survival</h3>
+                <div id="health-bar">
+                </div>
                 <p>Continue playing until you run out of hearts!</p>
                 <button id="survival-btn">Start</button>
             </div>
@@ -58,7 +60,12 @@
         <!-- Display score -->
         <div id="score" style="display: none; color:white">
             <h2>Score</h2>
-            <p style="font-size: 1.3rem;"><b>Correct:</b> <span id="numCorrect" style="font-size: 2rem; font-weight: bold;">0</span> <b style="margin-left: 10px;">Incorrect:</b> <span id="numIncorrect" style="font-size: 2rem; font-weight: bold;">0</span></p> 
+            <p style="font-size: 1.3rem;">
+                <b>Correct:</b> <span id="numCorrect" style="font-size: 2rem; font-weight: bold;">0</span> 
+                <b style="margin-left: 10px;" id="incorrect-field">Incorrect:</b> <span id="numIncorrect" style="font-size: 2rem; font-weight: bold;">0</span>
+                <b style="margin-left: 10px; display: none;" id="hp-field">Health: <span id="hp-bar" style="font-size: 2rem;"></span></b>
+            </p> 
+
         </div>
 
         <!-- Timed mode timer -->
@@ -69,7 +76,7 @@
         
 
         <!-- Display notation -->
-        <div style="margin-top: 50px;">
+        <div style="margin-top: 50px;" id="notation-container">
             <!-- Random notation -->
             <b style="font-size: 50px;"><span id="notation-field" style="color: white;"></span></b>
         </div>

@@ -10,7 +10,6 @@ function loadChessBoard(){
             let tdEl = document.createElement("td");
             tdEl.id = files[col-1] + row;
             // tdEl.textContent = files[col-1] + row;
-            let tileBg;
             tdEl.addEventListener('click', ()=>{
                 //prevent spam clicking when temporary highlighting the correct tile
                 if(board.style.pointerEvents === 'none') return;
@@ -108,10 +107,36 @@ function endlessGameModeHelper(){
     document.getElementById('notation-field').innerText = notationField;
 }
 
+function displayHP(){
+    let hpBarEl = document.getElementById('hp-bar');
+    hpBarEl.innerText = ""; //clear previous hearts
+
+    //update current remaining hearts
+    for(let i=0;i<currLives;i++)
+        hpBarEl.innerText += '♥︎ ';
+}
 
 function survivalGameMode(){
+    isSurvivalMode = true;
+
+    //initialize hearts
+    currLives = 3; //♥︎
+    displayHP();
+
+
+    //hide incorrect stats and show health bar
+    document.getElementById('hp-field').style.display='inline-block';
+    document.getElementById('incorrect-field').style.display='none';
+    document.getElementById('numIncorrect').style.display='none';
+
+    //game mode title
     document.getElementById('game-mode-name').textContent = "Survival Mode";
+
     hideGameModeMenu();
+
+    //game logic
+    endlessGameModeHelper();
+
 }
 
 
@@ -162,6 +187,24 @@ function correct()
 //update and display current number of incorrect answers
 function incorrect()
 {
+    if (isSurvivalMode){
+        currLives--;
+        displayHP();
+
+        //No more hearts
+        if(currLives <= 0){
+            setTimeout(() => {
+                alert("GAME OVER!");
+            }, 300);
+            //disable click
+            board.style.display = 'none';
+            document.getElementById('notation-container').style.display="none";
+            document.getElementById('try-again-btn').style.display='block';
+        }
+        return;
+    }
+
+    //for endless and timed game mode
     numIncorrect++;
     //display score
     document.getElementById('numIncorrect').innerText = numIncorrect;
@@ -179,6 +222,10 @@ let numCorrect = 0;
 let numIncorrect = 0;
 let timeMode; //save timed mode duration for play again button
 const board = document.getElementById('board');
+
+//survival game mode
+let currLives;
+let isSurvivalMode = false;
 
 
 
@@ -266,7 +313,14 @@ window.onload = () => {
     //play again button
     document.getElementById('try-again-btn').addEventListener('click', ()=>{
         document.getElementById('try-again-btn').style.display='none';
-        timedGameMode(timeMode);
+        if(!isSurvivalMode)
+            timedGameMode(timeMode);
+        else {
+            board.style.display='block';
+            document.getElementById('notation-container').display='block';
+            survivalGameMode();
+        }
+
     })
 
 

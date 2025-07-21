@@ -10,9 +10,21 @@
 
 7/19/25
 -Fix sound effect for mobile devices
--Implement "Survival Mode"
+-Implement "Survival Mode" [DONE 7/20]
 -Clean up UI for mobile device
 -Option to play was white or black
 -Red background when incorrect [Not implementing]
 -Green background when correct [Not implementing]
 -High score system?
+
+7/20/25
+|BUGS|
+    -Fix sound effect for mobile devices
+
+|GAME FEATURES|
+    -High score system?
+    -Option to play was white or black
+    
+|UI| 
+    -Style with Tailwind
+    -Clean up UI for mobile device
