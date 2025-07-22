@@ -1,3 +1,4 @@
+
 // dynamically create chess board
 function loadChessBoard(){
     let isBeige = true; //top left is "white" playing as white
@@ -61,7 +62,7 @@ function timedGameMode(duration){
     resetScore();
 
     document.getElementById('game-mode-name').textContent = "Timed Mode";
-    document.getElementById('timed-mode-clock').style.display = 'block';
+    document.getElementById('timed-mode-clock').classList.remove('hidden');
 
     startCountDown(duration);
     endlessGameModeHelper();
@@ -77,7 +78,7 @@ function startCountDown(seconds){
         clockTime.textContent = remaining;
 
         if(remaining<=0){
-            document.getElementById('try-again-btn').style.display='block';
+            document.getElementById('try-again-btn').classList.remove('hidden');
             clearInterval(intervalId);
 
             // Let DOM update first, then alert
@@ -125,9 +126,9 @@ function survivalGameMode(){
 
 
     //hide incorrect stats and show health bar
-    document.getElementById('hp-field').style.display='inline-block';
-    document.getElementById('incorrect-field').style.display='none';
-    document.getElementById('numIncorrect').style.display='none';
+    document.getElementById('hp-field').classList.remove('hidden');
+    document.getElementById('incorrect-field').classList.add('hidden');
+    document.getElementById('numIncorrect').classList.add('hidden');
 
     //game mode title
     document.getElementById('game-mode-name').textContent = "Survival Mode";
@@ -143,16 +144,17 @@ function survivalGameMode(){
 // hide all the game mode buttons and display the chess board
 function hideGameModeMenu(){
     //hide game mode buttons
-    document.getElementById('game-mode-menu').style.display = "none";
+    document.getElementById('game-mode-menu').classList.add('hidden');
 
     //show chessboard
-    document.getElementById('board').style.display='block';
+    document.getElementById('board').classList.remove('hidden');
 
     //show score
-    document.getElementById('score').style.display='block';
+    document.getElementById('score').classList.remove('hidden');
+
 
     //show the quit button
-    document.getElementById('quit-btn').style.display='block';
+    document.getElementById('quit-btn').classList.remove("hidden");
 }
 
 //generates a random chess notation [file][rank] or [col][row]
@@ -197,9 +199,9 @@ function incorrect()
                 alert("GAME OVER!");
             }, 300);
             //disable click
-            board.style.display = 'none';
-            document.getElementById('notation-container').style.display="none";
-            document.getElementById('try-again-btn').style.display='block';
+            board.classList.add('hidden');
+            document.getElementById('notation-container').classList.add('hidden');
+            document.getElementById('try-again-btn').classList.remove('hidden');
         }
         return;
     }
@@ -312,12 +314,12 @@ window.onload = () => {
 
     //play again button
     document.getElementById('try-again-btn').addEventListener('click', ()=>{
-        document.getElementById('try-again-btn').style.display='none';
+        document.getElementById('try-again-btn').classList.add('hidden');
         if(!isSurvivalMode)
             timedGameMode(timeMode);
         else {
-            board.style.display='block';
-            document.getElementById('notation-container').display='block';
+            board.classList.remove('hidden');
+            document.getElementById('notation-container').classList.remove('hidden');
             survivalGameMode();
         }
 

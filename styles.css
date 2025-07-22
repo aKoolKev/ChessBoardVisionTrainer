@@ -1,3 +1,10 @@
+:root{
+    --color-darkgray: #302e2b;
+    --color-green: #739552;
+    --color-beige: #ebecd0;
+}
+
+
 /* Chess board */
 table, th, td {
     border-collapse: collapse;
@@ -15,31 +22,4 @@ td:hover {
 
 td {
     user-select: none;
-}
-
-
-/* Main container that holds all the elements */
-.container{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    text-align: center;
-}
-
-
-.bg-green{
-    background-color: #739552;
-}
-.bg-beige{
-    background-color: #ebecd0;
-}
-
-.font-green{
-    color: #739552;
-}
-
-.font-beige{
-    color:#ebecd0;
 }

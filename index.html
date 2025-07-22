@@ -4,95 +4,115 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chess Notation Training</title>
+
+    <!-- Vanilla  -->
     <link rel="stylesheet" href="styles.css">
+
+    <!-- Tailwind css cdn -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+
+ 
+
+
+    <!-- DaisyUI cdn -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+
 </head>
-<body style="background-color: #302e2b;">
-    <!-- Main container -->
-    <div class="container">
 
-        <!-- Title -->
-        <h1 style="text-transform: uppercase;" class="font-green">Chess Notation Training</h1>
-        <p style="color:white;font-style: italic;">Presented by Kevin</p>
+<body class="bg-[var(--color-darkgray)] min-h-screen flex flex-col items-center justify-center">
 
-        <!-- Game Mode -->
-        <div style="margin: 25px; padding:25px; border: solid black 2px; border-radius: 25px; background-color: white;" id="game-mode-menu">
-            <h2 style="text-transform: uppercase;">Game Modes</h2>
-            <p style="margin-bottom: 50px">Start by selecting one of the three game modes!</p>
-
-            <hr>
-            <!-- Timed mode -->
-            <div>
-                <h3 style="text-transform: uppercase;">Timed</h3>
-                <p>Get as many as you can before the timer runs out!</p>
-                <button id="timed30s-btn">30 sec</button>
-                <button id="timed1min-btn">1 min</button>
-                <button id="timed3mins-btn">3 mins</button>
-                <button id="timed5mins-btn">5 mins</button>
-            </div>
-
-            <hr>
-
-            <!-- Endless mode -->
-            <div>
-                <h3 style="text-transform: uppercase;">Endless</h3>
-                <p>Play until you are satisfied!</p>
-                <button id="endless-btn">Start</button>
-            </div>
-
-            <hr>
-
-            <!-- Survival modes -->
-            <div>
-                <h3 style="text-transform: uppercase;">Survival</h3>
-                <div id="health-bar">
-                </div>
-                <p>Continue playing until you run out of hearts!</p>
-                <button id="survival-btn">Start</button>
-            </div>
-        </div>
-
-
-
-        <!-- Select Game mode name -->
-        <h1 id="game-mode-name" style="color:white"></h1>
-        
-
-        <!-- Display score -->
-        <div id="score" style="display: none; color:white">
-            <h2>Score</h2>
-            <p style="font-size: 1.3rem;">
-                <b>Correct:</b> <span id="numCorrect" style="font-size: 2rem; font-weight: bold;">0</span> 
-                <b style="margin-left: 10px;" id="incorrect-field">Incorrect:</b> <span id="numIncorrect" style="font-size: 2rem; font-weight: bold;">0</span>
-                <b style="margin-left: 10px; display: none;" id="hp-field">Health: <span id="hp-bar" style="font-size: 2rem;"></span></b>
-            </p> 
-
-        </div>
-
-        <!-- Timed mode timer -->
-        <div style="display: none; color: white;" id="timed-mode-clock">
-            <h2>Clock</h2>
-            <span id="clock-time" style="font-size: 1.5rem;">0</span>
-        </div>
-        
-
-        <!-- Display notation -->
-        <div style="margin-top: 50px;" id="notation-container">
-            <!-- Random notation -->
-            <b style="font-size: 50px;"><span id="notation-field" style="color: white;"></span></b>
-        </div>
-
-
-        <!-- Chess board -->
-        <div id="board" style="display: none;">
-            <table id="board-table"> 
-                <!-- dynamically created upon window loading -->
-            </table>
-        </div>
-
-        <button id="try-again-btn" style="display: none; margin-bottom: 10px;">Play again!</button>
-        <button id="quit-btn" style="display: none;">Quit to Menu</button>
-
+    <!-- Title -->
+    <div class="mt-10 text-center">
+        <h1 class="text-[var(--color-green)] uppercase text-4xl font-bold">Chess Notation Trainer</h1>
+        <p class="text-white italic mt-2">Presented by Kevin</p>
     </div>
+
+    <!-- Game mode menu -->
+    <div id="game-mode-menu" class="card bg-white w-80 shadow-sm text-center my-5">
+        <div class="card-body flex flex-col items-center">
+            <h2 class="uppercase font-bold">Game Modes</h2>
+            <p>Start by selecting one of the three game modes!</p>
+
+            <!-- horizontal menu  -->
+            <ul class="menu menu-horizontal m-0 flex justify-center bg-gray-200  rounded-box">
+                <li>
+                    <!-- colapsible horizontal submenu -->
+                    <details class="tooltip" data-tip="Race against the clock!">
+                        <summary>Timed</summary>
+                        <ul class="flex justify-center">
+                            <li><button class="btn btn-sm btn-soft uppercase btn-warning" id="timed30s-btn">30 s</button></li>
+                            <li><button class="btn btn-sm btn-soft uppercase btn-warning" id="timed1min-btn">1 min</button></li>
+                            <li><button class="btn btn-sm btn-soft uppercase btn-warning" id="timed3mins-btn">3 mins</button></li>
+                            <li><button class="btn btn-sm btn-soft uppercase btn-warning" id="timed5mins-btn">5 mins</button></li>
+                        </ul>
+                    </details>
+                </li>
+
+                <!-- Endless mode -->
+                <li>
+                    <div class="tooltip m-0 p-0">
+                        <div class="tooltip-content">
+                            <div class="text-sm">Play until you are satisfied!</div>
+                        </div>
+                        <button class="btn btn-sm btn-soft uppercase btn-primary" id="endless-btn">Endless</button>
+                    </div>
+                    
+                </li>
+
+                <!-- Survival mode -->
+                <li>
+                    <div class="tooltip m-0 p-0">
+                        <div class="tooltip-content">
+                            <div class="text-sm">Three strikes and you are out!</div>
+                        </div>
+                        <button class="btn btn-sm btn-soft uppercase btn-secondary" id="survival-btn">Survival</button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+    <!-- Selected Game mode name -->
+    <h1 id="game-mode-name" class="font-bold uppercase text-white text-2xl mt-20"></h1>
+    
+
+    <!-- Display score -->
+    <div id="score" class="hidden text-white">
+        <h2>Score</h2>
+        <p style="font-size: 1.3rem;">
+            <b>Correct:</b> <span id="numCorrect" style="font-size: 2rem; font-weight: bold;">0</span> 
+            <b style="margin-left: 10px;" id="incorrect-field">Incorrect:</b> <span id="numIncorrect" style="font-size: 2rem; font-weight: bold;">0</span>
+            <b class="ml-3 hidden" id="hp-field">Health: <span id="hp-bar" style="font-size: 2rem;"></span></b>
+        </p> 
+    </div>
+
+    <!-- Timed mode timer -->
+    <div class="hidden text-white" id="timed-mode-clock">
+        <h2>Clock</h2>
+        <span id="clock-time" style="font-size: 1.5rem;">0</span>
+    </div>
+    
+
+    <!-- Display notation -->
+    <div style="margin-top: 50px;" id="notation-container">
+        <!-- Random notation -->
+        <b style="font-size: 50px;"><span id="notation-field" style="color: white;"></span></b>
+    </div>
+
+
+    <!-- Chess board -->
+    <div id="board" class="hidden">
+        <table id="board-table"> 
+            <!-- dynamically created upon window loading -->
+        </table>
+    </div>
+
+
+    <button class="btn btn-sm hidden mt-5" id="try-again-btn"> Play Again! </button>
+    <button class="btn btn-sm hidden m-5" id="quit-btn"> Quit to Menu </button>
+
     <script src="script.js"></script>
 </body>
 </html>

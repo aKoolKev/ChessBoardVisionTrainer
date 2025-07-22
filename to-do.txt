@@ -28,3 +28,17 @@
 |UI| 
     -Style with Tailwind
     -Clean up UI for mobile device
+
+7/22/25
+|BUGS|
+    -Fix sound effect for mobile devices
+
+|GAME FEATURES|
+    -High score system?
+    -Option to play was white or black
+    
+|UI| 
+    -Style with Tailwind [7/22: In-progress]
+        - Need to style chess board with Tailwind
+    -Clean up UI for mobile device
+
