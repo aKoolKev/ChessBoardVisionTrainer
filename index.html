@@ -11,10 +11,6 @@
     <!-- Tailwind css cdn -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
-
- 
-
-
     <!-- DaisyUI cdn -->
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
 
@@ -29,7 +25,7 @@
     </div>
 
     <!-- Game mode menu -->
-    <div id="game-mode-menu" class="card bg-white w-80 shadow-sm text-center my-5">
+    <div id="game-mode-menu" class="card bg-white w-90 shadow-sm text-center my-5">
         <div class="card-body flex flex-col items-center">
             <h2 class="uppercase font-bold">Game Modes</h2>
             <p>Start by selecting one of the three game modes!</p>
@@ -51,8 +47,8 @@
 
                 <!-- Endless mode -->
                 <li>
-                    <div class="tooltip m-0 p-0">
-                        <div class="tooltip-content">
+                    <div class="tooltip m-0 !p-0">
+                        <div class="tooltip-content m-0 p-0">
                             <div class="text-sm">Play until you are satisfied!</div>
                         </div>
                         <button class="btn btn-sm btn-soft uppercase btn-primary" id="endless-btn">Endless</button>
@@ -62,7 +58,7 @@
 
                 <!-- Survival mode -->
                 <li>
-                    <div class="tooltip m-0 p-0">
+                    <div class="tooltip m-0 !p-0">
                         <div class="tooltip-content">
                             <div class="text-sm">Three strikes and you are out!</div>
                         </div>
