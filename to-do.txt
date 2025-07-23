@@ -32,6 +32,7 @@
 7/22/25
 |BUGS|
     -Fix sound effect for mobile devices
+    -Game mode menu, play again button, and quit to menu button not hidding
 
 |GAME FEATURES|
     -High score system?
@@ -42,3 +43,17 @@
         - Need to style chess board with Tailwind
     -Clean up UI for mobile device
 
+
+7/23/25
+|BUGS|
+    -Fix sound effect for mobile devices
+    -Game mode menu, play again button, and quit to menu button not hidding [FIXED]
+
+|GAME FEATURES|
+    -High score system?
+    -Option to play was white or black
+    
+|UI| 
+    -Style with Tailwind [7/22: In-progress]
+        - Need to style chess board with Tailwind
+    -Clean up UI for mobile device

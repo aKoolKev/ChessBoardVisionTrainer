@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chess Notation Training</title>
+    <title>Chess Notation Trainer</title>
 
-    <!-- Vanilla  -->
+    <!-- Vanilla CSS -->
     <link rel="stylesheet" href="styles.css">
 
-    <!-- Tailwind css cdn -->
+    <!-- Tailwind play cdn -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
     <!-- DaisyUI cdn -->
@@ -16,7 +16,7 @@
 
 </head>
 
-<body class="bg-[var(--color-darkgray)] min-h-screen flex flex-col items-center justify-center">
+<body class="bg-[var(--color-darkgray)] min-h-screen flex flex-col items-center justify-center text-center">
 
     <!-- Title -->
     <div class="mt-10 text-center">
@@ -25,49 +25,52 @@
     </div>
 
     <!-- Game mode menu -->
-    <div id="game-mode-menu" class="card bg-white w-90 shadow-sm text-center my-5">
-        <div class="card-body flex flex-col items-center">
-            <h2 class="uppercase font-bold">Game Modes</h2>
-            <p>Start by selecting one of the three game modes!</p>
+    <div id="game-mode-menu">
+        <div class="card bg-white w-90 shadow-sm text-center my-5">
+            <div class="card-body flex flex-col items-center">
+                <h2 class="uppercase font-bold">Game Modes</h2>
+                <p>Start by selecting one of the three game modes!</p>
 
-            <!-- horizontal menu  -->
-            <ul class="menu menu-horizontal m-0 flex justify-center bg-gray-200  rounded-box">
-                <li>
-                    <!-- colapsible horizontal submenu -->
-                    <details class="tooltip" data-tip="Race against the clock!">
-                        <summary>Timed</summary>
-                        <ul class="flex justify-center">
-                            <li><button class="btn btn-sm btn-soft uppercase btn-warning" id="timed30s-btn">30 s</button></li>
-                            <li><button class="btn btn-sm btn-soft uppercase btn-warning" id="timed1min-btn">1 min</button></li>
-                            <li><button class="btn btn-sm btn-soft uppercase btn-warning" id="timed3mins-btn">3 mins</button></li>
-                            <li><button class="btn btn-sm btn-soft uppercase btn-warning" id="timed5mins-btn">5 mins</button></li>
-                        </ul>
-                    </details>
-                </li>
+                <!-- horizontal menu  -->
+                <ul class="menu menu-horizontal m-0 flex justify-center bg-gray-200 rounded-box">
+                    <li>
+                        <!-- colapsible horizontal submenu -->
+                        <details class="tooltip" data-tip="Race against the clock!">
+                            <summary>Timed</summary>
+                            <ul class="flex justify-center">
+                                <li><button class="btn btn-sm btn-soft uppercase btn-warning" id="timed30s-btn">30 s</button></li>
+                                <li><button class="btn btn-sm btn-soft uppercase btn-warning" id="timed1min-btn">1 min</button></li>
+                                <li><button class="btn btn-sm btn-soft uppercase btn-warning" id="timed3mins-btn">3 mins</button></li>
+                                <li><button class="btn btn-sm btn-soft uppercase btn-warning" id="timed5mins-btn">5 mins</button></li>
+                            </ul>
+                        </details>
+                    </li>
 
-                <!-- Endless mode -->
-                <li>
-                    <div class="tooltip m-0 !p-0">
-                        <div class="tooltip-content m-0 p-0">
-                            <div class="text-sm">Play until you are satisfied!</div>
+                    <!-- Endless mode -->
+                    <li>
+                        <div class="tooltip m-0 !p-0">
+                            <div class="tooltip-content m-0 p-0">
+                                <div class="text-sm">Play until you are satisfied!</div>
+                            </div>
+                            <button class="btn btn-sm btn-soft uppercase btn-primary" id="endless-btn">Endless</button>
                         </div>
-                        <button class="btn btn-sm btn-soft uppercase btn-primary" id="endless-btn">Endless</button>
-                    </div>
-                    
-                </li>
+                        
+                    </li>
 
-                <!-- Survival mode -->
-                <li>
-                    <div class="tooltip m-0 !p-0">
-                        <div class="tooltip-content">
-                            <div class="text-sm">Three strikes and you are out!</div>
+                    <!-- Survival mode -->
+                    <li>
+                        <div class="tooltip m-0 !p-0">
+                            <div class="tooltip-content">
+                                <div class="text-sm">Three strikes and you are out!</div>
+                            </div>
+                            <button class="btn btn-sm btn-soft uppercase btn-secondary" id="survival-btn">Survival</button>
                         </div>
-                        <button class="btn btn-sm btn-soft uppercase btn-secondary" id="survival-btn">Survival</button>
-                    </div>
-                </li>
-            </ul>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
+    
 
 
     <!-- Selected Game mode name -->
@@ -106,8 +109,8 @@
     </div>
 
 
-    <button class="btn btn-sm hidden mt-5" id="try-again-btn"> Play Again! </button>
-    <button class="btn btn-sm hidden m-5" id="quit-btn"> Quit to Menu </button>
+    <button class="btn btn-sm !hidden mt-5" id="try-again-btn"> Play Again! </button>
+    <button class="btn btn-sm !hidden m-5" id="quit-btn"> Quit to Menu </button>
 
     <script src="script.js"></script>
 </body>

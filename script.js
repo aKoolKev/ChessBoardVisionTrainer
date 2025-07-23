@@ -78,7 +78,7 @@ function startCountDown(seconds){
         clockTime.textContent = remaining;
 
         if(remaining<=0){
-            document.getElementById('try-again-btn').classList.remove('hidden');
+            document.getElementById('try-again-btn').classList.remove('!hidden');
             clearInterval(intervalId);
 
             // Let DOM update first, then alert
@@ -154,7 +154,7 @@ function hideGameModeMenu(){
 
 
     //show the quit button
-    document.getElementById('quit-btn').classList.remove("hidden");
+    document.getElementById('quit-btn').classList.remove("!hidden");
 }
 
 //generates a random chess notation [file][rank] or [col][row]
@@ -189,6 +189,7 @@ function correct()
 //update and display current number of incorrect answers
 function incorrect()
 {
+    //for survival mode
     if (isSurvivalMode){
         currLives--;
         displayHP();
@@ -197,11 +198,11 @@ function incorrect()
         if(currLives <= 0){
             setTimeout(() => {
                 alert("GAME OVER!");
-            }, 300);
+            }, 10);
             //disable click
             board.classList.add('hidden');
             document.getElementById('notation-container').classList.add('hidden');
-            document.getElementById('try-again-btn').classList.remove('hidden');
+            document.getElementById('try-again-btn').classList.remove('!hidden');
         }
         return;
     }
@@ -314,16 +315,13 @@ window.onload = () => {
 
     //play again button
     document.getElementById('try-again-btn').addEventListener('click', ()=>{
-        document.getElementById('try-again-btn').classList.add('hidden');
+        document.getElementById('try-again-btn').classList.add('!hidden');
         if(!isSurvivalMode)
             timedGameMode(timeMode);
-        else {
+        else { //was survival mode
             board.classList.remove('hidden');
             document.getElementById('notation-container').classList.remove('hidden');
             survivalGameMode();
         }
-
     })
-
-
 }
