@@ -1,7 +1,7 @@
 # ChessBoardVisionTrainer
 A tool to help increase chess player's board vision and aid with visualizing the board notation.
 
-### 7/29/25
+### To-Do (7/29/25)
 > **| BUGS |**
 > - [ ] Fix sound effect for mobile devices
 > - [ ] Sound does not work after clicking "Play again" button but works the third time? 
