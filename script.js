@@ -1,15 +1,50 @@
 
 // dynamically create chess board
 function loadChessBoard(){
+    //make board clickable again
+    board.style.pointerEvents = 'auto';
+    board.style.userSelect = 'none';
+
+    //prevent creating many instances of the board when user click "play again" button
+    if(boardLoaded) return;
+    boardLoaded = true;
+    
     let isBeige = true; //top left is "white" playing as white
 
     const tableEl = document.getElementById("board-table");
 
+    /*
+        board pattern is the same regardless if player
+        is playing black or white
+
+        playing as black
+        the notation changes
+        1
+        2
+        .
+        .
+        .
+        7
+        8
+        hgfedcba
+    */
+    blackRowRank = 1;
+    blackColFile = 7; //7 = g, 6 = h, ... , 0 = a
+
     for(let row=8; row>=1; row--){ //"rank"
         let trEl = document.createElement("tr");
+        blackColFile = 7;
         for(let col=1; col<=8; col++){
             let tdEl = document.createElement("td");
-            tdEl.id = files[col-1] + row;
+            if (!isPlayingWhite){
+                tdEl.id = files[blackColFile] + blackRowRank; 
+                blackColFile--;
+                //tdEl.innerText = tdEl.id;
+            }
+            else{
+                //tdEl.id = files[col-1] + row;
+                tdEl.innerText = tdEl.id;
+            }
             // tdEl.textContent = files[col-1] + row;
             tdEl.addEventListener('click', ()=>{
                 //prevent spam clicking when temporary highlighting the correct tile
@@ -47,6 +82,7 @@ function loadChessBoard(){
             isBeige=!isBeige; //toggle it
             trEl.appendChild(tdEl);
         }
+        blackRowRank++;
         //create alternating pattern
         isBeige=!isBeige; //toggle it
         tableEl.appendChild(trEl);
@@ -84,6 +120,8 @@ function startCountDown(seconds){
             // Let DOM update first, then alert
             setTimeout(() => {
                 alert("Time's up!");
+                //disable board
+                board.style.pointerEvents = 'none';
             }, 100); // 100ms is enough to flush the DOM changes
         }
 
@@ -143,6 +181,9 @@ function survivalGameMode(){
 
 // hide all the game mode buttons and display the chess board
 function hideGameModeMenu(){
+    //load the chess board
+    loadChessBoard(); //create chess board dynamically
+
     //hide game mode buttons
     document.getElementById('game-mode-menu').classList.add('hidden');
 
@@ -151,7 +192,6 @@ function hideGameModeMenu(){
 
     //show score
     document.getElementById('score').classList.remove('hidden');
-
 
     //show the quit button
     document.getElementById('quit-btn').classList.remove("!hidden");
@@ -225,10 +265,14 @@ let numCorrect = 0;
 let numIncorrect = 0;
 let timeMode; //save timed mode duration for play again button
 const board = document.getElementById('board');
+let boardLoaded = false;
 
 //survival game mode
 let currLives;
 let isSurvivalMode = false;
+
+//Playing as white or black?
+isPlayingWhite = true;
 
 
 
@@ -273,8 +317,6 @@ function playSelectSound(){
 
 
 window.onload = () => {
-    loadChessBoard(); //create chess board dynamically
-
     //add event listeners to game mode buttons
 
     //timed game mode buttons
@@ -324,4 +366,17 @@ window.onload = () => {
             survivalGameMode();
         }
     })
+
+    //player option to play black or white
+    document.querySelectorAll('input[name="color-radio"]').forEach(
+        radio => {
+            radio.addEventListener('click', (e)=>{
+                if(e.target.value === "black"){
+                    //was initalize to white 
+                    isPlayingWhite = !isPlayingWhite;
+                }
+                //else is white...do nothing
+            })
+        }
+    );
 }
