@@ -42,8 +42,8 @@ function loadChessBoard(){
                 //tdEl.innerText = tdEl.id;
             }
             else{
-                //tdEl.id = files[col-1] + row;
-                tdEl.innerText = tdEl.id;
+                tdEl.id = files[col-1] + row;
+                // tdEl.innerText = tdEl.id;
             }
             // tdEl.textContent = files[col-1] + row;
             tdEl.addEventListener('click', ()=>{
@@ -290,6 +290,8 @@ fetch('https://images.chesscomfiles.com/chess-themes/sounds/_MP3_/default/move-s
 );
 
 function playMoveSound() {
+    if(!audioBuffer) return; //audio not loaded yet
+    
     const source = audioContext.createBufferSource();
     source.buffer = audioBuffer;
     source.connect(audioContext.destination);
