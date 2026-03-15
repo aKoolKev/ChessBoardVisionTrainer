@@ -51,15 +51,27 @@
                 <ul class="menu menu-horizontal m-0 flex justify-center bg-gray-200 rounded-box">
                     <li>
                         <!-- colapsible horizontal submenu -->
-                        <details class="tooltip" data-tip="Race against the clock!">
-                            <summary>Timed</summary>
-                            <ul class="flex justify-center">
+                        <div class="dropdown dropdown-center !m-0 !p-0">
+                            <!-- <div tabindex="0" role="button" class="btn m-1">Timed</div> -->
+                            
+                            <div class="tooltip">
+                                <button class="btn btn-sm btn-soft uppercase btn-warning">Timed</button>
+                            <div class="tooltip-content">
+                                <div class="text-sm">Race against the clock!</div>
+                            </div>
+                    
+                            <ul tabindex="-1" class="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
+                                                                
                                 <li><button class="btn btn-sm btn-soft uppercase btn-warning" id="timed30s-btn">30 s</button></li>
                                 <li><button class="btn btn-sm btn-soft uppercase btn-warning" id="timed1min-btn">1 min</button></li>
                                 <li><button class="btn btn-sm btn-soft uppercase btn-warning" id="timed3mins-btn">3 mins</button></li>
                                 <li><button class="btn btn-sm btn-soft uppercase btn-warning" id="timed5mins-btn">5 mins</button></li>
                             </ul>
-                        </details>
+                        </div>
+                               
+        
+                            </div>
+                        
                     </li>
 
                     <!-- Endless mode -->
