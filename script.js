@@ -281,7 +281,7 @@ const audioContext = new AudioContext();
 let audioBuffer;
 
 //selecting board tile noise
-fetch('http://images.chesscomfiles.com/chess-themes/sounds/_MP3_/default/move-self.mp3')
+fetch('https://images.chesscomfiles.com/chess-themes/sounds/_MP3_/default/move-self.mp3')
     .then(response => response.arrayBuffer()) //fetch the audio data
     .then(buffer => audioContext.decodeAudioData(buffer)) // decode the audio data
     .then(decodedData => {
@@ -300,7 +300,7 @@ function playMoveSound() {
 //all button select noise
 const audioContext2 = new AudioContext();
 let audioBuffer2;
-fetch('http://images.chesscomfiles.com/chess-themes/sounds/_MP3_/default/move-check.mp3')
+fetch('https://images.chesscomfiles.com/chess-themes/sounds/_MP3_/default/move-check.mp3')
     .then(response => response.arrayBuffer()) //fetch the audio data
     .then(buffer => audioContext2.decodeAudioData(buffer)) // decode the audio data
     .then(decodedData => {
